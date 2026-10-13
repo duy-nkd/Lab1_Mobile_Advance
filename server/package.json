@@ -1,0 +1,16 @@
+{
+  "name": "lab1-chat-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test index.test.js"
+  },
+  "dependencies": {
+    "Lab1": "file:..",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.1"
+  }
+}

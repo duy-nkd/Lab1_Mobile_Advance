@@ -1,45 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import HomeScreen from './screens/HomeScreen';
+import GroupScreen from './screens/GroupScreen';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+export default function App() {
+  const [name, setName] = useState('');
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  function startChat(userName: string) {
+    setName(userName);
+    setIsChatOpen(true);
+  }
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={styles.container}>
+        {isChatOpen ? (
+          <GroupScreen name={name} onBack={() => setIsChatOpen(false)} />
+        ) : (
+          <HomeScreen initialName={name} onStartChat={startChat} />
+        )}
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
 });
-
-export default App;
